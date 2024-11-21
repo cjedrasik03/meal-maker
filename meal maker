@@ -1,0 +1,41 @@
+const menu = {
+    courses: {
+        appetizers: [],
+        mains: [],
+        desserts: [],
+    },
+
+
+    addDishToCourse(courseName, dishName, dishPrice) {
+        const dish = {
+            name: dishName,
+            price: dishPrice,
+        };
+
+        if (this.courses[courseName]) {
+            this.courses[courseName].push(dish);
+        } else {
+            console.log(`Course ${courseName} doesnt exist.`);
+        }    
+    },
+
+
+    getRandomDishFromCourse(courseName) {
+       const dishes = this.courses[courseName];
+       if (!dishes || dishes.length === 0) {
+        return `There are no dishes avaiable in ${courseName}`
+       };
+
+       const ranDishIndex = Math.floor(Math.random() * dishes.length);
+       return dishes[ranDishIndex];
+    },
+
+    generateRandomMeal() {
+        const appetizer = this.getRandomDishFromCourse('appetizers')
+        const main = this.getRandomDishFromCourse('mains')
+        const dessert = this.getRandomDishFromCourse('desserts')
+
+        const totalPrice = appetizer.price + main.price + dessert.price;
+        return `Your meal will consiste of ${appetizer.name}, ${main.name}, ${dessert.name} and the total cost is ${totalPrice.toFixed(2)}.`
+    },
+};
